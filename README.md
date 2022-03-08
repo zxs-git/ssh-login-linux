@@ -90,11 +90,23 @@ spawn ssh user@xxx.xxx.xxx.xxx
 2. Linux expect 自动化交互套件
 
 
-#### 特技
+#### 使用技巧
+1. 在【环境列表】输入 0 或者 回车 直接退出 ssh-login-linux 登录。
 
-1.  使用 Readme\_XXX.md 来支持不同的语言，例如 Readme\_en.md, Readme\_zh.md
-2.  Gitee 官方博客 [blog.gitee.com](https://blog.gitee.com)
-3.  你可以 [https://gitee.com/explore](https://gitee.com/explore) 这个地址来了解 Gitee 上的优秀开源项目
-4.  [GVP](https://gitee.com/gvp) 全称是 Gitee 最有价值开源项目，是综合评定出的优秀开源项目
-5.  Gitee 官方提供的使用手册 [https://gitee.com/help](https://gitee.com/help)
-6.  Gitee 封面人物是一档用来展示 Gitee 会员风采的栏目 [https://gitee.com/gitee-stars/](https://gitee.com/gitee-stars/)
+```
+# 回车
+[zhangxs@localhost server]$ ./menu.python 
+1:开发环境
+2:测试环境
+please input env num:
+[zhangxs@localhost server]$ ./menu.python 
+# 输入 0
+1:开发环境
+2:测试环境
+please input env num:0
+
+2. 在【服务器列表】输入 0 返回【环境列表】。
+3. 当输入的编码，大于当前数据列表的长度，会刷新当前配置表格。
+[zhangxs@localhost server]$ 
+```
+
