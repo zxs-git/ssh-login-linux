@@ -91,7 +91,8 @@ spawn ssh user@xxx.xxx.xxx.xxx
 
 
 #### 使用技巧
-1. 在【环境列表】输入 0 或者 回车 直接退出 ssh-login-linux 登录。
+### 1. 在【环境列表】输入 0 或者 回车 直接退出 ssh-login-linux 登录。
+
 
 ```
 # 回车
@@ -105,8 +106,10 @@ please input env num:
 2:测试环境
 please input env num:0
 
-2. 在【服务器列表】输入 0 返回【环境列表】。
-3. 当输入的编码，大于当前数据列表的长度，会刷新当前配置表格。
+### 2. 在【服务器列表】输入 0 返回【环境列表】。
+
+### 3. 当输入的编码，大于当前数据列表的长度，会刷新当前配置表格。
+
 [zhangxs@localhost server]$ 
 ```
 
