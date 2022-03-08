@@ -105,11 +105,9 @@ please input env num:
 1:开发环境
 2:测试环境
 please input env num:0
-
+[zhangxs@localhost server]$ 
+```
 ### 2. 在【服务器列表】输入 0 返回【环境列表】。
 
 ### 3. 当输入的编码，大于当前数据列表的长度，会刷新当前配置表格。
-
-[zhangxs@localhost server]$ 
-```
 
