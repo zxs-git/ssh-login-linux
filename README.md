@@ -8,9 +8,10 @@ SSHLoginLinux 是一个在linux 终端进行远程登录的工具。登陆不需
 
 #### 安装教程
 
-1：git clone https://gitee.com/zhangxingsheng/ssh-login-linux.git master | [最新tag]
-2：pip install PrettyTable
-3: yum install -y expect
+1. git clone https://gitee.com/zhangxingsheng/ssh-login-linux.git master | [最新tag]
+2. pip install PrettyTable
+3. yum install -y expect
+
 
 #### 使用说明
 1：修改 serverConfig.json 文件，填入你的服务器密码
