@@ -48,7 +48,7 @@ class Menu(object):
 			serverJson = json.load(load_f);
 			for envList in serverJson:
 				if(envList["ENV"] == env):
-					print("========================"+envList["ENV"]+"==============================+")
+					print("+========================"+envList["ENV"]+"===============================+")
 					table=PrettyTable(["编号","内网ip","外网ip","备注"])
 					serviceList = envList["SERVICE_LIST"];
 					for service in serviceList:
