@@ -25,7 +25,7 @@ numEnvList=[];
 # 菜单类
 class Menu(object):
 
-	def showEnv(self,serverConfigPath):
+	def showEnvList(self,serverConfigPath):
 		envNum = 1;
 		with open(serverConfigPath,'r') as load_f:
 			serverJson = json.load(load_f);
@@ -39,7 +39,7 @@ class Menu(object):
 		return numEnvList[num];
 
 
-	def getServerByEnv(self,env,serverConfigPath):
+	def showServerList(self,env,serverConfigPath):
 		serverNum = 1;
 		with open(serverConfigPath,'r') as load_f:
 			serverJson = json.load(load_f);
@@ -60,32 +60,47 @@ class Menu(object):
 					table.align["外网ip"] = 'l';
 					table.align["备注"] = 'l';
 					print(table);
-# 输入校验类
-class InputCheck(object):
-	def intputCheck(self,message,maxInputLength):
+
+# 用户操作类
+class UserAction(object):
+	# 输入校验
+	def intputCheck(self,message,maxInputLength,step):
 		num = input(message+":")
-		if num == "" or num == "0":
+		if num == "":
 			sys.exit(0);
 		if(int(num) > maxInputLength):
 			sys.exit(0);
 		return num;
 
+	# 选择环境
+	def envChoose(self):
+		# 菜单类
+		menu=Menu();
+		menu.showEnvList(serverConfigPath);
+		envStep = 1;
+		num = userAction.intputCheck("please input env num",len(numEnvList),envStep);
+		env = menu.getEnvByNum(int(num)-1);
+		menu.showServerList(env,serverConfigPath);
+		self.serverChoose();
+
+	# 选择服务器
+	def serverChoose(self):
+		serverStep = 2;
+		num = userAction.intputCheck("please input server num",len(numServerList),serverStep);
+
+		if(int(num) == 0):
+			self.envChoose();
+		else:
+			server = numServerList[int(num)-1];
+			os.system("./conn_server.sh "+server.user+" "+server.password+" "+server.inIp)
+
+
 serverConfigPath="serverConfig.json";
-# 菜单类
-menu=Menu();
-menu.showEnv(serverConfigPath);
+
+
 # 输入校验类
-intputCheck=InputCheck();
-
-# 选择环境
-num = intputCheck.intputCheck("please input env num",len(numEnvList));
-env = menu.getEnvByNum(int(num)-1);
-menu.getServerByEnv(env,serverConfigPath);
-
-# 选择服务器
-num = intputCheck.intputCheck("please input server num",len(numServerList));
-server = numServerList[int(num)-1];
-os.system("./conn_server.sh "+server.user+" "+server.password+" "+server.inIp)
+userAction=UserAction();
+userAction.envChoose();
 
 
 
