@@ -75,7 +75,7 @@ class InputCheck(object):
 
 # 菜单类
 menu=Menu();
-menu.showEnv("servserInfo.json");
+menu.showEnv("serverConfig.json");
 # 输入校验类
 intputCheck=InputCheck();
 
