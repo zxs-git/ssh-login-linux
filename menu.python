@@ -25,22 +25,28 @@ numEnvList=[];
 # 菜单类
 class Menu(object):
 
+	# 展示环境列表
 	def showEnvList(self,serverConfigPath):
 		envNum = 1;
+		# 每次清空列表缓存
+		numEnvList.clear();
 		with open(serverConfigPath,'r') as load_f:
 			serverJson = json.load(load_f);
 			for envList in serverJson:
 				env = envList["ENV"];
 				print(str(envNum)+":"+env)
 				envNum = envNum+1;
+				# 初始化环境列表缓存
 				numEnvList.append(env);
 
 	def getEnvByNum(self,num):
 		return numEnvList[num];
 
-
+	# 展示服务器列表
 	def showServerList(self,env,serverConfigPath):
 		serverNum = 1;
+		# 每次清空列表缓存
+		numServerList.clear();
 		with open(serverConfigPath,'r') as load_f:
 			serverJson = json.load(load_f);
 			for envList in serverJson:
@@ -52,7 +58,7 @@ class Menu(object):
 						table.add_row([serverNum,service["inIp"],service["outIp"],service["remark"]])
 
 						sBean=ServerBean(service["inIp"],service["outIp"],service["password"],service["remark"],service["user"]);
-
+						# 初始化服务器列表缓存
 						numServerList.append(sBean);
 						serverNum=serverNum+1;
 
@@ -63,37 +69,64 @@ class Menu(object):
 
 # 用户操作类
 class UserAction(object):
+	menu = Menu();
+	# 当前用户选择的环境
+	currentEnv = "";
+	# 当前用户步骤
+	currentStep = 0;
+	# 是否还未登陆，当用户登陆ssh后,再退出登陆时，会更新此状态。防止再次登陆
+	notLogin=True;
 	# 输入校验
-	def intputCheck(self,message,maxInputLength,step):
+	def intputCheck(self,message,step):
 		num = input(message+":")
 		if num == "":
 			sys.exit(0);
-		if(int(num) > maxInputLength):
-			sys.exit(0);
 		return num;
+	# 输入处理方法
+	def inputHandler(self,num,maxInputLength):
+		if(int(num) == 0):
+			if(self.currentStep == 1):
+				sys.exit(0);
+			if(self.currentStep == 2):
+				self.envChoose();
+
+		if(int(num) > maxInputLength):
+			if(self.currentStep == 1):
+				self.envChoose();
+			if(self.currentStep == 2):
+				self.serverChoose();
+
 
 	# 选择环境
 	def envChoose(self):
-		# 菜单类
-		menu=Menu();
-		menu.showEnvList(serverConfigPath);
-		envStep = 1;
-		num = userAction.intputCheck("please input env num",len(numEnvList),envStep);
-		env = menu.getEnvByNum(int(num)-1);
-		menu.showServerList(env,serverConfigPath);
+		# 菜单类，展示列表
+		self.menu.showEnvList(serverConfigPath);
+		self.currentStep = 1;
+		# 环境长度
+		numEnvLength = len(numEnvList);
+
+		num = userAction.intputCheck("please input env num",self.currentStep);
+		# 处理用户输入
+		self.inputHandler(num,numEnvLength);
+		self.currentEnv = self.menu.getEnvByNum(int(num)-1);
 		self.serverChoose();
 
 	# 选择服务器
 	def serverChoose(self):
-		serverStep = 2;
-		num = userAction.intputCheck("please input server num",len(numServerList),serverStep);
-
-		if(int(num) == 0):
-			self.envChoose();
-		else:
+		self.menu.showServerList(self.currentEnv,serverConfigPath);
+		self.currentStep = 2;
+		num = userAction.intputCheck("please input server num",self.currentStep);
+		# 处理用户输入
+		self.inputHandler(num,len(numServerList));
+		if(self.notLogin):
 			server = numServerList[int(num)-1];
 			os.system("./conn_server.sh "+server.user+" "+server.password+" "+server.inIp)
-
+			# 设置为登陆状态
+			self.notLogin = False;
+		else:
+			# 设置为未登陆状态
+			self.notLogin = True;
+			self.serverChoose();
 
 serverConfigPath="serverConfig.json";
 
