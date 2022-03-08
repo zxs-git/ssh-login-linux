@@ -1,0 +1,45 @@
+[
+  {
+    "ENV": "开发环境",
+    "SERVICE_LIST": [
+      {
+        "inIp": "xxx.xxx.xxx.xxx",
+        "outIp": "xxx.xxx.xxx.xxx",
+        "password": "pass",
+        "user": "user",
+        "remark": "mariadDB,Redis,MongoDB"
+      }
+    ]
+  },
+  {
+    "ENV": "测试环境",
+    "SERVICE_LIST": [
+      {
+        "inIp": "xxx.xxx.xxx.xxx",
+        "outIp": "xxx.xxx.xxx.xxx",
+        "password": "pass",
+        "user": "user",
+        "remark": "mariadDB,Redis,MongoDB"
+      }
+    ]
+  },
+  {
+    "ENV": "生产环境",
+    "SERVICE_LIST": [
+      {
+        "inIp": "xxx.xxx.xxx.xxx",
+        "outIp": "xxx.xxx.xxx.xxx",
+        "password": "pass",
+        "user": "root",
+        "remark": ""
+      },
+      {
+        "inIp": "xxx.xxx.xxx.xxx",
+        "outIp": "xxx.xxx.xxx.xxx",
+        "password": "pass",
+        "user": "root",
+        "remark": "mariadDB(slave)"
+      }
+    ]
+  }
+]
