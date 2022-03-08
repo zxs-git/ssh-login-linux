@@ -1,7 +1,7 @@
 # SSHLoginLinux
 
 #### 介绍
-SSHLoginLinux 是一个在linux 终端进行远程登录的工具。每次登陆不需要手动输入密码
+SSHLoginLinux 是一个在linux 终端进行远程登录的工具。登陆不需要手动输入密码
 #### 软件架构
 
 
@@ -45,11 +45,13 @@ SSHLoginLinux 是一个在linux 终端进行远程登录的工具。每次登陆
 2：执行 menu.python 脚本
 
 ```
-./menu.python
-```
+[zhangxs@localhost server]$ ./menu.python 
 1:开发环境
 2:测试环境
 3:生产环境
+
+```
+
 
 3：选择 对应环境的编码
 
@@ -85,12 +87,8 @@ spawn ssh user@xxx.xxx.xxx.xxx
 
 
 #### 参与贡献
-
-1.  Fork 本仓库
-2.  新建 Feat_xxx 分支
-3.  提交代码
-4.  新建 Pull Request
-
+1：使用到 PrettyTable 表格绘制工具
+2：Linux expect 自动化交互套件
 
 #### 特技
 
