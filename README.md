@@ -50,18 +50,16 @@ SSHLoginLinux 是一个在linux 终端进行远程登录的工具。登陆不需
 [zhangxs@localhost server]$ ./menu.python 
 1:开发环境
 2:测试环境
-3:生产环境
 
 ```
 
 
-3：选择 对应环境的编码
+3：选择 对应 **环境编码** 
 
 ```
 [zhangxs@localhost server]$ ./menu.python 
 1:开发环境
 2:测试环境
-3:生产环境
 please input env num:1
 +========================开发环境===============================+
 +------+-----------------+-----------------+------------------------+
@@ -72,7 +70,7 @@ please input env num:1
 please input server num:
 
 ```
-4：选择对应的服务器编码
+4：选择对应的 **服务器编码** 进行登录
 
 ```
 +========================开发环境===============================+
@@ -84,8 +82,6 @@ please input server num:
 please input server num:1
 spawn ssh user@xxx.xxx.xxx.xxx
 ```
-
-
 
 
 #### 参与贡献
