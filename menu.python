@@ -19,9 +19,6 @@ class ServerBean(object):
 		self.remark = remark;
 		self.user = user;
 
-
-
-
 numServerList=[];
 numEnvList=[];
 
