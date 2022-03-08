@@ -42,9 +42,9 @@ class Menu(object):
 		return numEnvList[num];
 
 
-	def getServerByEnv(self,env):
+	def getServerByEnv(self,env,serverConfigPath):
 		serverNum = 1;
-		with open("servserInfo.json",'r') as load_f:
+		with open(serverConfigPath,'r') as load_f:
 			serverJson = json.load(load_f);
 			for envList in serverJson:
 				if(envList["ENV"] == env):
@@ -73,16 +73,17 @@ class InputCheck(object):
 			sys.exit(0);
 		return num;
 
+serverConfigPath="serverConfig.json";
 # 菜单类
 menu=Menu();
-menu.showEnv("serverConfig.json");
+menu.showEnv(serverConfigPath);
 # 输入校验类
 intputCheck=InputCheck();
 
 # 选择环境
 num = intputCheck.intputCheck("please input env num",len(numEnvList));
 env = menu.getEnvByNum(int(num)-1);
-menu.getServerByEnv(env);
+menu.getServerByEnv(env,serverConfigPath);
 
 # 选择服务器
 num = intputCheck.intputCheck("please input server num",len(numServerList));
