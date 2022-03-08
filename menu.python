@@ -1,0 +1,94 @@
+#!/usr/bin/python3
+import json
+import os
+import sys
+from prettytable import PrettyTable
+
+class ServerBean(object):
+	"""docstring for ClassName"""
+	inIp="";
+	outIp="";
+	password="";
+	remark="";
+	user="";
+	
+	def __init__(self,inIp,outIp,password,remark,user):
+		self.inIp = inIp;
+		self.outIp = outIp;
+		self.password = password;
+		self.remark = remark;
+		self.user = user;
+
+
+
+
+numServerList=[];
+numEnvList=[];
+
+# 菜单类
+class Menu(object):
+
+	def showEnv(self,serverConfigPath):
+		envNum = 1;
+		with open(serverConfigPath,'r') as load_f:
+			serverJson = json.load(load_f);
+			for envList in serverJson:
+				env = envList["ENV"];
+				print(str(envNum)+":"+env)
+				envNum = envNum+1;
+				numEnvList.append(env);
+
+	def getEnvByNum(self,num):
+		return numEnvList[num];
+
+
+	def getServerByEnv(self,env):
+		serverNum = 1;
+		with open("servserInfo.json",'r') as load_f:
+			serverJson = json.load(load_f);
+			for envList in serverJson:
+				if(envList["ENV"] == env):
+					print("========================"+envList["ENV"]+"==============================+")
+					table=PrettyTable(["编号","内网ip","外网ip","备注"])
+					serviceList = envList["SERVICE_LIST"];
+					for service in serviceList:
+						table.add_row([serverNum,service["inIp"],service["outIp"],service["remark"]])
+
+						sBean=ServerBean(service["inIp"],service["outIp"],service["password"],service["remark"],service["user"]);
+
+						numServerList.append(sBean);
+						serverNum=serverNum+1;
+
+					table.align["内网ip"] = 'l';
+					table.align["外网ip"] = 'l';
+					table.align["备注"] = 'l';
+					print(table);
+# 输入校验类
+class InputCheck(object):
+	def intputCheck(self,message,maxInputLength):
+		num = input(message+":")
+		if num == "" or num == "0":
+			sys.exit(0);
+		if(int(num) > maxInputLength):
+			sys.exit(0);
+		return num;
+
+# 菜单类
+menu=Menu();
+menu.showEnv("servserInfo.json");
+# 输入校验类
+intputCheck=InputCheck();
+
+# 选择环境
+num = intputCheck.intputCheck("please input env num",len(numEnvList));
+env = menu.getEnvByNum(int(num)-1);
+menu.getServerByEnv(env);
+
+# 选择服务器
+num = intputCheck.intputCheck("please input server num",len(numServerList));
+server = numServerList[int(num)-1];
+os.system("./conn_server.sh "+server.user+" "+server.password+" "+server.inIp)
+
+
+
+		
