@@ -110,4 +110,15 @@ please input env num:0
 ### 2. 在【服务器列表】输入 0 返回【环境列表】。
 
 ### 3. 当输入的编码，大于当前数据列表的长度，会刷新当前配置表格。
-
+### 4. 在 /usr/local/bin/ 下建立软链接，可以快捷访问命令
+       1. cd /usr/local/bin/
+       2. ln -s [menu.python文件绝对路径] [别名]
+          例:ln -s /home/zhangxs/Script/server/menu.python conn
+       3. chown zhangxs conn -R # 【可选】 让zhangxs用户 也可使用该命令，
+       4. 输入 conn
+          效果：
+          `[zhangxs@localhost server]$ conn
+            1:开发环境
+            2:测试环境
+            3:生产环境
+            please input env num:`
